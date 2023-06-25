@@ -46,8 +46,8 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
     console.log('uploaded')
 
     await transporter.sendMail({
-        from: 'awrvdaefgrsd@outlook.com',
-        to: "vavylona@gmail.com",
+        from: process.env.user,
+        to: process.env.me,
         subject: req.body.email,
         text: '',
     })

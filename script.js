@@ -10,7 +10,7 @@ let model
 // Initialize the object detector
 const initializeObjectDetector = async () => {
 
-    try {
+    //try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
         objectDetector = await ObjectDetector.createFromOptions(vision, {
@@ -25,10 +25,10 @@ const initializeObjectDetector = async () => {
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
         else console.warn("Not supported by your browser")
     }
-    catch {
+    /*catch {
         alert('Wrong email')
         location.reload()
-    }
+    }*/
 
 }
 
