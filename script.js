@@ -10,25 +10,25 @@ let model
 // Initialize the object detector
 const initializeObjectDetector = async () => {
 
-    //try {
-    const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
+    try {
+        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
-    objectDetector = await ObjectDetector.createFromOptions(vision, {
-        baseOptions: {
-            modelAssetPath: `${model}.tflite`,
-            delegate: 'GPU'
-        },
-        scoreThreshold: 0.5,
-        runningMode: 'VIDEO'
-    })
+        objectDetector = await ObjectDetector.createFromOptions(vision, {
+            baseOptions: {
+                modelAssetPath: `${model}.tflite`,
+                delegate: 'GPU'
+            },
+            scoreThreshold: 0.5,
+            runningMode: 'VIDEO'
+        })
 
-    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
-    else console.warn("Not supported by your browser")
-    /*}
+        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
+        else console.warn("Not supported by your browser")
+    }
     catch {
         alert('Wrong email')
         location.reload()
-    }*/
+    }
 
 }
 
