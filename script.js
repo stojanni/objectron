@@ -24,8 +24,8 @@ const initializeObjectDetector = async () => {
 
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
         else console.warn("Not supported by your browser")
-    }
-    /*catch {
+    /*}
+    catch {
         alert('Wrong email')
         location.reload()
     }*/
