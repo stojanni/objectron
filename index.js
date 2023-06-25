@@ -35,15 +35,6 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
 
     const blob = storage.bucket('objectron_bucket').file(`${req.body.email}_video.mp4`)
     const blobStream = blob.createWriteStream()
-
-    blobStream.on('error', err => {
-        next(err)
-    })
-
-    blobStream.on('finish', () => {
-        res.status(200).send('File uploaded')
-    })
-
     blobStream.end(req.file.buffer)
 
     let file = storage.bucket('objectron_bucket').file(`${req.body.email}_trainLabels.json`)
@@ -62,6 +53,8 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
     })
 
     console.log('mail sent')
+
+    res.status(200).send('File uploaded')
 })
 
 const port = process.env.PORT || 8080

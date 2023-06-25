@@ -9,33 +9,27 @@ let lastVideoTime = -1
 // Initialize the object detector
 const initializeObjectDetector = async () => {
 
-    let model = null
+    model = prompt('Enter your email:')
 
-    do {
+    try {
+        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
-        model = prompt('Enter your email:')
+        objectDetector = await ObjectDetector.createFromOptions(vision, {
+            baseOptions: {
+                modelAssetPath: `${model}.tflite`,
+                delegate: 'GPU'
+            },
+            scoreThreshold: 0.5,
+            runningMode: 'VIDEO'
+        })
 
-        try {
-            const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
-
-            objectDetector = await ObjectDetector.createFromOptions(vision, {
-                baseOptions: {
-                    modelAssetPath: `${model}.tflite`,
-                    delegate: 'GPU'
-                },
-                scoreThreshold: 0.5,
-                runningMode: 'VIDEO'
-            })
-
-            if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
-            else console.warn("Not supported by your browser")
-        }
-        catch {
-            alert('Wrong email')
-            model = null
-        }
-
-    } while (model == null)
+        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
+        else console.warn("Not supported by your browser")
+    }
+    catch {
+        alert('Wrong email')
+        location.reload()
+    }
 
 }
 
