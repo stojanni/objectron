@@ -5,11 +5,10 @@ let video = document.getElementById("webcam")
 let liveView = document.getElementById("liveView")
 let children = [] // Keep a reference of all the child elements we create so we can remove them easilly on each render.
 let lastVideoTime = -1
+let model
 
 // Initialize the object detector
 const initializeObjectDetector = async () => {
-
-    let model = prompt('Enter your email:')
 
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
@@ -93,4 +92,6 @@ function displayVideoDetections(result) {
 
 }
 
+model = prompt('Enter your email:', 'test')
+console.log('----')
 initializeObjectDetector()
