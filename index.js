@@ -6,8 +6,8 @@ const { Storage } = require('@google-cloud/storage')
 const nodemailer = require("nodemailer")
 
 const storage = new Storage({
-    projectId: 'object-384510',
-    keyFilename: 'object-384510-e73264702d4f.json'
+    projectId: process.env.projectId,
+    keyFilename: process.env.keyFilename
 })
 
 const upload = multer({ storage: multer.memoryStorage() })
@@ -17,8 +17,8 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'awrvdaefgrsd@outlook.com',
-        pass: 'a*Erf&z(V&:T@K9'
+        user: process.env.user,
+        pass: process.env.pass
     }
 })
 
