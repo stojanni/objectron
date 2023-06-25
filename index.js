@@ -4,14 +4,13 @@ const cors = require('cors')
 const multer = require('multer')
 const { Storage } = require('@google-cloud/storage')
 const nodemailer = require("nodemailer")
-const fs = require('fs')
 
 const storage = new Storage({
     projectId: 'object-384510',
     keyFilename: 'object-384510-e73264702d4f.json'
 })
 
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ storage: multer.memoryStorage() })
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.office365.com',
@@ -34,17 +33,24 @@ app.get('/platform', (req, res) => res.sendFile(path.join(__dirname, '/platform/
 
 app.post('/upload', upload.single('file'), async (req, res, next) => {
 
-    await storage.bucket('objectron_bucket').upload(req.file.path, {
-        destination: req.body.email + '_video.mp4',
+    const blob = storage.bucket('objectron_bucket').file(`${req.body.email}_video.mp4`)
+    const blobStream = blob.createWriteStream()
+
+    blobStream.on('error', err => {
+        next(err)
     })
+
+    blobStream.on('finish', () => {
+        res.status(200).send('File uploaded')
+    })
+
+    blobStream.end(req.file.buffer)
 
     let file = storage.bucket('objectron_bucket').file(`${req.body.email}_trainLabels.json`)
     file.createWriteStream().on('error', err => { }).on('finish', () => { }).end(req.body.trainJSON)
 
     file = storage.bucket('objectron_bucket').file(`${req.body.email}_validationLabels.json`)
-    file.createWriteStream().on('error', err => { }).on('finish', () => res.send('Uploaded')).end(req.body.validationJSON)
-
-    fs.readdir('/uploads', files => files.forEach(file => fs.unlink(path.join(directory, file))))
+    file.createWriteStream().on('error', err => { }).on('finish', () => { }).end(req.body.validationJSON)
 
     console.log('uploaded')
 
@@ -56,7 +62,6 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
     })
 
     console.log('mail sent')
-
 })
 
 const port = process.env.PORT || 8080
