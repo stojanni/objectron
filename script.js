@@ -11,19 +11,19 @@ let model
 const initializeObjectDetector = async () => {
 
     //try {
-        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
+    const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
-        objectDetector = await ObjectDetector.createFromOptions(vision, {
-            baseOptions: {
-                modelAssetPath: `${window.location.href + model}.tflite`,
-                delegate: 'GPU'
-            },
-            scoreThreshold: 0.5,
-            runningMode: 'VIDEO'
-        })
+    objectDetector = await ObjectDetector.createFromOptions(vision, {
+        baseOptions: {
+            modelAssetPath: `${window.location.href + model}.tflite`,
+            delegate: 'GPU'
+        },
+        scoreThreshold: 0.5,
+        runningMode: 'VIDEO'
+    })
 
-        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
-        else console.warn("Not supported by your browser")
+    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
+    else console.warn("Not supported by your browser")
     /*}
     catch {
         alert('Wrong email')
@@ -92,6 +92,6 @@ function displayVideoDetections(result) {
 
 }
 
+window.focus()
 model = prompt('Enter your email:', 'test')
-console.log('----')
 initializeObjectDetector()
