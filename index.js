@@ -29,7 +29,7 @@ app.use(express.json())
 
 mime.define({'application/tflite': ['tflite']});
 
-app.use(express.static('public', {
+app.use(express.static('.', {
   setHeaders: function (res, path) {
     if (mime.lookup(path) === 'application/tflite') {
       res.setHeader('Content-Type', 'application/tflite');
