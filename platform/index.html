@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Objectron.</title>
+    <link rel="icon" type="image/x-icon" href="eye.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" rel="noopener">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin rel="noopener">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/intro.js/introjs.css">
+    <script type="text/javascript" src="https://unpkg.com/intro.js/intro.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <img src="eye.png" style="height: 30px;">
+        <span>Objectr<b>on</b>.</span>
+    </div>
+
+    <div class="stepper-container">
+
+        <div class="step active" id="step-1">
+
+            <div class="buttons_left" id="buttonsLeft">
+
+                <div class="input-field col s6">
+                    <input id="labelInput" type="text" class="validate" style="color: white">
+                    <label for="labelInput">New label</label>
+                </div>
+
+                <button class="btn blue accent-4" style="width: 200px" id="addLabel" disabled>Add Label</button>
+                <button class="btn blue accent-4" style="width: 200px" id="removeLabel" disabled>Remove Label</button>
+
+                <span style="margin-top: 20px; color: white; font-size: 18px;">Labels:</span>
+                <ul id="list" class="collection" style="width: 200px"></ul>
+
+            </div>
+
+            <div>
+                <canvas id="canvas" width="1024" height="576" style="border: 1px solid #3B6263; border-radius: 5px;"></canvas>
+                <canvas id="canvas1" width="1024" height="576" style="position: absolute; border: 1px solid #3B6263; border-radius: 5px;"></canvas>
+                <input type="file" id="videoFile" accept="video/*" hidden>
+                <video id="video" style="display:none"></video>
+            </div>
+
+            <div class="buttons_right">
+
+                <label id="uploadVideo" style="width: 200px" for="videoFile" class="btn blue accent-4">
+                    Upload Video
+                    <i class="material-icons right">file_upload</i>
+                </label>
+
+                <div id="shortcuts" style="font-size: 16px; margin-top: 30px; color: white; display: flex; flex-direction: column; gap: 10px">
+                    <span><b>A</b>: Previous frame</span>
+                    <span><b>D</b>: Next frame</span>
+                    <span><b>Space</b>: Reset frame</span>
+                    <span id="secondCount"><b>Time</b>: 0</span>
+                </div>
+
+                <button class="btn blue accent-4" style="width: 200px; margin-top: 330px;" id="export">Export</button>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
