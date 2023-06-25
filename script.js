@@ -9,7 +9,7 @@ let lastVideoTime = -1
 // Initialize the object detector
 const initializeObjectDetector = async () => {
 
-    model = prompt('Enter your email:')
+    let model = prompt('Enter your email:')
 
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
