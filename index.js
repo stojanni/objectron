@@ -4,7 +4,6 @@ const cors = require('cors')
 const multer = require('multer')
 const { Storage } = require('@google-cloud/storage')
 const nodemailer = require("nodemailer")
-const mime = require('mime');
 
 const storage = new Storage({
     projectId: process.env.projectId,
@@ -26,16 +25,7 @@ const transporter = nodemailer.createTransport({
 const app = express()
 app.use(cors())
 app.use(express.json())
-
-mime.define({'application/tflite': ['tflite']});
-
-app.use(express.static('.', {
-  setHeaders: function (res, path) {
-    if (mime.getType(path) === 'application/tflite') {
-      res.setHeader('Content-Type', 'application/tflite');
-    }
-  }
-}));
+app.use(express.static('.'))
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')))
 
