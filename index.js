@@ -4,6 +4,7 @@ const cors = require('cors')
 const multer = require('multer')
 const { Storage } = require('@google-cloud/storage')
 const nodemailer = require("nodemailer")
+require('dotenv').config()
 
 const storage = new Storage({
     projectId: process.env.projectId,
