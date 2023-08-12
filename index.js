@@ -28,9 +28,9 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/index.html')))
+app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'))
 
-app.get('/platform', (req, res) => res.sendFile(path.join(__dirname, '/public/platform/index.html')))
+app.get('/platform', (req, res) => res.sendFile(__dirname + '/public/platform/index.html'))
 
 app.post('/upload', upload.single('file'), async (req, res, next) => {
 
