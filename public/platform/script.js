@@ -1,6 +1,3 @@
-let currentStep = 1
-const totalSteps = 1
-
 let drawing = false
 let rectangles = []
 let currentSecond = 0
@@ -311,7 +308,7 @@ async function exportData() {
 
     document.getElementById('export').disabled = true
 
-    let email = prompt("Enter your email:")
+    let email = prompt("Enter your a model name:")
 
     const formData = new FormData()
     formData.append('file', video)
