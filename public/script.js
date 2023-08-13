@@ -11,7 +11,7 @@ let model = ''
 let wDiff
 let hDiff
 
-window.addEventListener('resize', computeScaling)
+window.addEventListener('orientationchange', computeScaling);
 
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
@@ -138,15 +138,12 @@ function displayVideoDetections(result) {
 
         activeChildren.push(highlighter)
 
-        if (!document.getElementsByClassName('fpsDisplay')[0].innerText.includes(detection.categories[0].categoryName))
-            document.getElementsByClassName('fpsDisplay')[0].innerText += ` - ${detection.categories[0].categoryName}`
-
         // Create and add the label (text)
-        /*const p = document.createElement("p")
+        const p = document.createElement("p")
         p.innerText = `${detection.categories[0].categoryName} - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`
         p.style = `left: ${detection.boundingBox.originX * wDiff}px; top: ${detection.boundingBox.originY * hDiff}px; width: ${(detection.boundingBox.width * wDiff - 10)}px;`
         liveView.appendChild(p)
-        activeChildren.push(p)*/
+        activeChildren.push(p)
 
     }
 
