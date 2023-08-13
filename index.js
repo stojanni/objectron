@@ -59,4 +59,4 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
 })
 
 const port = process.env.PORT || 8080
-app.listen(port, () => console.log('\nServer started at http://localhost:' + port + '\n'))
+app.listen(port, () => console.log('\nServer started at port: ' + port + '\n'))
