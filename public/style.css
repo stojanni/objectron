@@ -23,19 +23,15 @@ video {
 
 .videoView p {
   position: absolute;
-  padding: 8px;
-  /* Unified padding */
+  padding: 8px;  /* Unified padding */
   background-color: #007f8b;
   color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  /* Text shadow for better visibility */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);  /* Text shadow for better visibility */
   border: 1px dashed rgba(255, 255, 255, 0.7);
   z-index: 2;
-  font-size: 14px;
-  /* Slightly larger font size for mobile readability */
+  font-size: 14px;  /* Slightly larger font size for mobile readability */
   margin: 0;
-  border-radius: 3px;
-  /* Added for aesthetic reasons */
+  border-radius: 3px;  /* Added for aesthetic reasons */
 }
 
 .highlighter {
@@ -43,15 +39,12 @@ video {
   background: rgba(0, 255, 0, 0.25);
   border: 1px dashed #fff;
   z-index: 1;
-  transition: top 0.3s ease-out, left 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out;
 }
 
 /* Media Query for Larger Devices (tablets and desktops) */
 @media (min-width: 768px) {
   .videoView p {
-    font-size: 12px;
-    /* Reset to original size on larger devices */
-    padding: 5px 5px;
-    /* Reset padding */
+    font-size: 12px;    /* Reset to original size on larger devices */
+    padding: 5px 5px;    /* Reset padding */
   }
 }
