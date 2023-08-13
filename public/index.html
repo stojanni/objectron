@@ -9,17 +9,16 @@
 
 <body>
 
-  <div class="fpsDisplay">
-    <label for="model">Model: </label>
-    <input id="model" type="text" value="efficientdet_lite0">
-    <button id="btn">Go</button>
+  <div style="position: absolute; bottom: 0; display: flex;">
+    <input id="model" type="text" value="efficientdet_lite0" style="width: 90vw; height: 70px; font-size: 50px">
+    <button id="btn" style="width: 10vw; height: 75px; font-size: 50px">Go</button>
   </div>
   
   <div id="liveView" class="videoView">
     <video id="webcam" autoplay playsinline></video>
   </div>
 
-  <span id="logo" style="font-size: 100px; font-style: italic; color: white; position: absolute; top: 45%; left: 42%;">Lens.</span>
+  <span id="logo" style="font-size: 100px; font-style: italic; color: white; position: absolute; top: 45%; left: 38%;">Lens.</span>
 
   <script type="module" src="script.js"></script>
 

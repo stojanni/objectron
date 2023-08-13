@@ -11,10 +11,6 @@ let model = ''
 let wDiff
 let hDiff
 
-let frameCount = 0 // Number of frames processed
-let lastTimestamp = 0 // Last timestamp FPS was calculated
-
-
 window.addEventListener('resize', computeScaling)
 
 window.addEventListener('beforeunload', () => {
@@ -51,7 +47,7 @@ async function initializeObjectDetector() {
                 modelAssetPath: `${document.getElementById("model").value}.tflite`,
                 delegate: 'GPU'
             },
-            scoreThreshold: 0.5,
+            scoreThreshold: 0.8,
             runningMode: 'VIDEO'
         })
 
@@ -85,17 +81,6 @@ async function enableCam() {
 }
 
 async function predictWebcam(timestamp) {
-
-    frameCount++
-    let elapsedTime = timestamp - lastTimestamp
-    if (elapsedTime >= 1000) { // 1000 ms = 1 second
-        let fps = frameCount / (elapsedTime / 1000)
-        document.getElementsByClassName('fpsDisplay')[0].innerText = `FPS: ${fps.toFixed(2)}` // Display the FPS rounded to two decimal places
-        frameCount = 0
-        lastTimestamp = timestamp
-    }
-
-    //----------------------------------------
 
     let nowInMs = Date.now()
 
