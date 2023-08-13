@@ -68,7 +68,7 @@ async function initializeObjectDetector() {
 // Enable the live webcam view and start detection.
 async function enableCam() {
 
-    document.getElementById("menu").remove()
+    //document.getElementById("menu").remove()
 
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
