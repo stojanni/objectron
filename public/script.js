@@ -152,4 +152,5 @@ function displayVideoDetections(result) {
 
 }
 
-document.getElementById("btn").addEventListener('click', initializeObjectDetector)
+if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
+else document.getElementById("btn").addEventListener('click', initializeObjectDetector)
