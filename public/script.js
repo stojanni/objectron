@@ -47,7 +47,7 @@ async function initializeObjectDetector() {
                 modelAssetPath: `${document.getElementById("model").value}.tflite`,
                 delegate: 'GPU'
             },
-            scoreThreshold: 0.8,
+            scoreThreshold: 0.5,
             runningMode: 'VIDEO'
         })
 
@@ -67,7 +67,7 @@ async function initializeObjectDetector() {
 async function enableCam() {
 
     document.getElementById("menu").remove()
-    
+
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
         video.srcObject = stream
