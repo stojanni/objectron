@@ -34,13 +34,13 @@ app.get('/platform', (req, res) => res.sendFile(path.join(__dirname, 'public/pla
 
 app.post('/upload', upload.single('file'), async (req, res, next) => {
 
-    let blob = storage.bucket('objectron_bucket').file(`${req.body.email}_video.mp4`)
+    let blob = storage.bucket('objectron_bucket').file(`${req.body.model}_video.mp4`)
     blob.createWriteStream().on('error', err => console.log('file upload error')).end(req.file.buffer)
 
-    let file = storage.bucket('objectron_bucket').file(`${req.body.email}_trainLabels.json`)
+    let file = storage.bucket('objectron_bucket').file(`${req.body.model}_trainLabels.json`)
     file.createWriteStream().on('error', err => console.log('file upload error')).end(req.body.trainJSON)
 
-    file = storage.bucket('objectron_bucket').file(`${req.body.email}_validationLabels.json`)
+    file = storage.bucket('objectron_bucket').file(`${req.body.model}_validationLabels.json`)
     file.createWriteStream().on('error', err => console.log('file upload error')).end(req.body.validationJSON)
 
     console.log('uploaded')
@@ -48,7 +48,7 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
     await transporter.sendMail({
         from: process.env.user,
         to: process.env.me,
-        subject: req.body.email,
+        subject: req.body.model,
         text: '',
     })
 
@@ -58,4 +58,4 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
 })
 
 const port = process.env.PORT || 8080
-app.listen(port, () => console.log('\nServer started at port: ' + port + '\n'))
+app.listen(port, () => console.log(`Server started at port: ${port}`))

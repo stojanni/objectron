@@ -51,7 +51,7 @@ document.onkeyup = (e) => {
 
 //----------------------------------------------------------------------
 
-introJs().setOptions({
+/*introJs().setOptions({
     showBullets: false,
     steps: [{
         title: 'Guide',
@@ -76,7 +76,7 @@ introJs().setOptions({
         title: 'Step 4:',
         intro: "Export the data for training."
     }]
-}).start()
+}).start()*/
 
 //----------------------------------------------------------------------
 
@@ -308,13 +308,14 @@ async function exportData() {
 
     document.getElementById('export').disabled = true
 
-    let email = prompt("Enter your a model name:")
+    let model = ''
+    while (model == '') prompt("Enter your a model name:")
 
     const formData = new FormData()
     formData.append('file', video)
     formData.append('trainJSON', JSON.stringify(generateAnnotationJson(true)))
     formData.append('validationJSON', JSON.stringify(generateAnnotationJson(false)))
-    formData.append('email', email)
+    formData.append('model', model)
 
     fetch(`${window.location.href.replace('platform/', 'upload')}`, {
         method: 'POST',
@@ -396,4 +397,4 @@ const toast = txt => Toastify({
     }
 }).showToast()
 
-if(!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com';
+if (!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com'
