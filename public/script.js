@@ -69,6 +69,7 @@ async function initializeObjectDetector() {
 async function enableCam() {
 
     //document.getElementById("menu").remove()
+    document.getElementById("btn").disabled = false;
 
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
@@ -152,4 +153,3 @@ function displayVideoDetections(result) {
 }
 
 document.getElementById("btn").addEventListener('click', initializeObjectDetector)
-screen.orientation.lock("portrait")
