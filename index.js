@@ -34,15 +34,14 @@ app.get('/platform', (req, res) => res.sendFile(path.join(__dirname, 'public/pla
 
 app.post('/upload', upload.single('file'), async (req, res, next) => {
 
-    const blob = storage.bucket('objectron_bucket').file(`${req.body.email}_video.mp4`)
-    const blobStream = blob.createWriteStream()
-    blobStream.end(req.file.buffer)
+    let blob = storage.bucket('objectron_bucket').file(`${req.body.email}_video.mp4`)
+    blob.createWriteStream().on('error', err => console.log('file upload error')).end(req.file.buffer)
 
     let file = storage.bucket('objectron_bucket').file(`${req.body.email}_trainLabels.json`)
-    file.createWriteStream().on('error', err => { }).on('finish', () => { }).end(req.body.trainJSON)
+    file.createWriteStream().on('error', err => console.log('file upload error')).end(req.body.trainJSON)
 
     file = storage.bucket('objectron_bucket').file(`${req.body.email}_validationLabels.json`)
-    file.createWriteStream().on('error', err => { }).on('finish', () => { }).end(req.body.validationJSON)
+    file.createWriteStream().on('error', err => console.log('file upload error')).end(req.body.validationJSON)
 
     console.log('uploaded')
 

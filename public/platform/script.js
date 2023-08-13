@@ -58,7 +58,7 @@ introJs().setOptions({
     showBullets: false,
     steps: [{
         title: 'Guide',
-        intro: "Welcome to Objectron!"
+        intro: "Welcome to Lens!"
     }, {
         element: document.getElementById('uploadVideo'),
         title: 'Step 1:',
