@@ -42,7 +42,7 @@ function computeScaling() {
 
 // Initialize the object detector
 async function initializeObjectDetector() {
-    
+
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
@@ -71,7 +71,7 @@ async function initializeObjectDetector() {
 async function enableCam() {
 
     // Activate the webcam stream.
-    navigator.mediaDevices.getUserMedia({ video: true/*{ facingMode: { exact: "environment" } }*/ }).then(stream => {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
         video.srcObject = stream
         video.addEventListener("loadeddata", () => {
             computeScaling()
