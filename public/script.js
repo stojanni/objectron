@@ -6,7 +6,7 @@ let liveView = document.getElementById("liveView")
 let childrenPool = []
 let activeChildren = []
 let lastVideoTime = -1
-let model
+let model = ''
 
 let wDiff
 let hDiff
@@ -41,14 +41,14 @@ function computeScaling() {
 }
 
 // Initialize the object detector
-const initializeObjectDetector = async () => {
-
+async function initializeObjectDetector() {
+    
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
         objectDetector = await ObjectDetector.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: `${model}.tflite`,
+                modelAssetPath: `${document.getElementById("model").value}.tflite`,
                 delegate: 'GPU'
             },
             scoreThreshold: 0.5,
@@ -57,9 +57,11 @@ const initializeObjectDetector = async () => {
 
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
         else console.warn("Not supported by your browser")
+
+        document.getElementById("logo").remove()
     }
     catch {
-        alert('Wrong email')
+        alert('Model not found')
         location.reload()
     }
 
@@ -163,6 +165,4 @@ function displayVideoDetections(result) {
 
 }
 
-window.focus()
-model = prompt('Enter your email:', 'efficientdet_lite0')
-initializeObjectDetector()
+document.getElementById("btn").addEventListener('click', initializeObjectDetector)
