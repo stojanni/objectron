@@ -152,3 +152,4 @@ function displayVideoDetections(result) {
 }
 
 document.getElementById("btn").addEventListener('click', initializeObjectDetector)
+screen.orientation.lock("portrait")
