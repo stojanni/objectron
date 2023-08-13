@@ -398,3 +398,5 @@ const toast = txt => Toastify({
         marginTop: "60px",
     }
 }).showToast()
+
+if(!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com';
