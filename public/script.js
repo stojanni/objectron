@@ -11,7 +11,7 @@ let model = ''
 let wDiff
 let hDiff
 
-window.addEventListener('orientationchange', computeScaling);
+window.addEventListener('orientationchange', computeScaling)
 
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
@@ -39,7 +39,7 @@ function computeScaling() {
 // Initialize the object detector
 async function initializeObjectDetector() {
 
-    document.getElementById("btn").disabled = true;
+    document.getElementById("btn").disabled = true
 
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
@@ -69,7 +69,7 @@ async function initializeObjectDetector() {
 async function enableCam() {
 
     //document.getElementById("menu").remove()
-    document.getElementById("btn").disabled = false;
+    document.getElementById("btn").disabled = false
 
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
@@ -104,11 +104,9 @@ async function predictWebcam(timestamp) {
 function displayVideoDetections(result) {
 
     // Remove text elements from the previous frame
-    for (let child of activeChildren) {
-        if (child.tagName === 'P') {
+    for (let child of activeChildren)
+        if (child.tagName === 'P')
             liveView.removeChild(child)
-        }
-    }
 
     // Move all active highlighters to the pool
     while (activeChildren.length > 0) {
@@ -144,7 +142,9 @@ function displayVideoDetections(result) {
         // Create and add the label (text)
         const p = document.createElement("p")
         p.innerText = `${detection.categories[0].categoryName}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
-        p.style = `left: ${detection.boundingBox.originX * wDiff}px; top: ${detection.boundingBox.originY * hDiff}px; width: ${(detection.boundingBox.width * wDiff - 10)}px;`
+        p.style.left = `${detection.boundingBox.originX * wDiff}px`
+        p.style.top = `${detection.boundingBox.originY * hDiff}px`
+        p.style.width = `${(detection.boundingBox.width * wDiff - 10)}px`
         liveView.appendChild(p)
         activeChildren.push(p)
 
