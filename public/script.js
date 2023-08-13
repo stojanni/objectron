@@ -143,7 +143,7 @@ function displayVideoDetections(result) {
         // Create and add the label (text)
         const p = document.createElement("p")
         p.innerText = `${detection.categories[0].categoryName}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
-        p.style = `left: ${detection.boundingBox.originX * wDiff}px; top: ${detection.boundingBox.originY * hDiff}px; width: ${(detection.boundingBox.width * wDiff - 20)}px;`
+        p.style = `left: ${detection.boundingBox.originX * wDiff}px; top: ${detection.boundingBox.originY * hDiff}px; width: ${(detection.boundingBox.width * wDiff - 10)}px;`
         liveView.appendChild(p)
         activeChildren.push(p)
 
