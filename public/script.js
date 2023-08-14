@@ -11,6 +11,8 @@ let wDiff
 let hDiff
 
 
+window.onload = initializeObjectDetector()
+
 screen.orientation.addEventListener('change', computeScaling)
 
 window.addEventListener('beforeunload', () => {
@@ -38,7 +40,7 @@ function computeScaling() {
 
 // Initialize the object detector
 async function initializeObjectDetector() {
-    alert('aaaaaa')
+
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
@@ -83,7 +85,7 @@ async function enableCam() {
 
 }
 
-async function predictWebcam(timestamp) {
+async function predictWebcam() {
 
     let nowInMs = Date.now()
 
@@ -151,4 +153,3 @@ function displayVideoDetections(result) {
 }
 
 //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
-initializeObjectDetector()
