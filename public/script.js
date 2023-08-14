@@ -6,7 +6,6 @@ let liveView = document.getElementById("liveView")
 let childrenPool = []
 let activeChildren = []
 let lastVideoTime = -1
-let model = ''
 
 let wDiff
 let hDiff
