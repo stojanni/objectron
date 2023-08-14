@@ -263,7 +263,7 @@ function drawSecond() {
 
     //console.log('drawSecond')
 
-    document.getElementById('frameCount').innerHTML = `<b>Frame</b>: ${Math.round(currentSecond * 100) / 100}/${Math.round(videoElement.duration * 100) / 100} (25fps)`
+    document.getElementById('frameCount').innerHTML = `<b>Second</b>: ${Math.round(currentSecond * 100) / 100}/${Math.round(videoElement.duration * 100) / 100} (25fps)`
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height)
