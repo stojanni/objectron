@@ -70,7 +70,7 @@ async function initializeObjectDetector() {
 async function enableCam() {
 
     // Activate the webcam stream.
-    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
         video.srcObject = stream
         video.addEventListener("loadeddata", () => {
             computeScaling()
