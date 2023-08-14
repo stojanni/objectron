@@ -12,7 +12,7 @@ let hDiff
 
 
 window.onload = initializeObjectDetector()
-
+//sd
 screen.orientation.addEventListener('change', computeScaling)
 
 document.getElementById('close').addEventListener('touchstart', () => document.getElementsByClassName('content')[0].style.display = 'none');
