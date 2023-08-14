@@ -35,6 +35,7 @@ video {
   z-index: 2;
   font-size: 12px;  /* Slightly larger font size for mobile readability */
   border-radius: 20px 20px 0 0;  /* Added for aesthetic reasons */
+  text-align: center;
 }
 
 /* Media Query for Larger Devices (tablets and desktops) */
