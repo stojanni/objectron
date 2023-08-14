@@ -10,6 +10,9 @@ let lastVideoTime = -1
 let wDiff
 let hDiff
 
+
+document.getElementById("btn").addEventListener('click', initializeObjectDetector)
+
 screen.orientation.addEventListener('change', computeScaling)
 
 window.addEventListener('beforeunload', () => {
@@ -155,4 +158,4 @@ function displayVideoDetections(result) {
 
 }
 
-document.getElementById("btn").addEventListener('click', initializeObjectDetector)
+if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
