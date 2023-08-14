@@ -11,6 +11,18 @@ body {
   overflow: hidden;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #212121;
+  z-index: 3;
+}
+
 video {
   width: auto;
   height: 100vh;
@@ -28,17 +40,13 @@ video {
   position: absolute;
   margin: 0;
   padding: 4px;
-  /* Unified padding */
   background-color: #007f8b;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  /* Text shadow for better visibility */
   border: 1px dashed rgba(255, 255, 255, 0.7);
   z-index: 2;
   font-size: 12px;
-  /* Slightly larger font size for mobile readability */
   border-radius: 20px 20px 0 0;
-  /* Added for aesthetic reasons */
   text-align: center;
 }
 

@@ -15,6 +15,8 @@ window.onload = initializeObjectDetector()
 
 screen.orientation.addEventListener('change', computeScaling)
 
+document.getElementsByClassName('close')[0].addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none');
+
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
         let tracks = video.srcObject.getTracks()
