@@ -15,7 +15,7 @@ window.onload = initializeObjectDetector()
 
 screen.orientation.addEventListener('change', computeScaling)
 
-document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none');
+document.getElementById('close').addEventListener('click', document.getElementsByClassName('content')[0].style.display = 'none');
 
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
