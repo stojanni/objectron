@@ -23,6 +23,12 @@ body {
   z-index: 3;
 }
 
+.videoView {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 video {
   width: auto;
   height: 100vh;
