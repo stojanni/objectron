@@ -37,7 +37,7 @@ function computeScaling() {
 
 // Initialize the object detector
 async function initializeObjectDetector() {
-    alert('shieeet niggaaaa')
+    
     document.getElementById("btn").disabled = true
 
     try {
@@ -155,5 +155,4 @@ function displayVideoDetections(result) {
 
 }
 
-if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
-else document.getElementById("btn").addEventListener('click', initializeObjectDetector)
+document.getElementById("btn").addEventListener('click', initializeObjectDetector)
