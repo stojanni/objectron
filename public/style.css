@@ -12,14 +12,14 @@ body {
 }
 
 .content {
-  display: none;
+  display: flex;
   flex-direction: column;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: 212121;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #212121;
   z-index: 3;
 }
 
@@ -29,6 +29,10 @@ body {
   top: 0;
   min-width: 100%;
   min-height: 100%;
+}
+
+video {
+  height: 100vh;
 }
 
 .highlighter {
