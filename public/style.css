@@ -20,6 +20,7 @@ video {
   position: absolute;
   background: rgba(0, 255, 0, 0.25);
   border: 1px dashed #fff;
+  border-radius: 20px;
   z-index: 1;
 }
 
@@ -33,7 +34,7 @@ video {
   margin: 0;
   z-index: 2;
   font-size: 12px;  /* Slightly larger font size for mobile readability */
-  border-radius: 3px;  /* Added for aesthetic reasons */
+  border-radius: 20px 20px 0 0;  /* Added for aesthetic reasons */
 }
 
 /* Media Query for Larger Devices (tablets and desktops) */
