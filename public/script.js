@@ -37,7 +37,7 @@ function computeScaling() {
 
 // Initialize the object detector
 async function initializeObjectDetector() {
-
+    alert('shieeet niggaaaa')
     document.getElementById("btn").disabled = true
 
     try {
