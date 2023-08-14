@@ -52,14 +52,18 @@ async function initializeObjectDetector() {
             runningMode: 'VIDEO'
         })
 
-        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) enableCam()
-        else console.warn("Not supported by your browser")
+        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
+            enableCam()
+        else {
+            alert("Not supported by your browser")
+            return
+        }
 
         document.getElementById("logo").remove()
     }
     catch {
         alert('Model not found')
-        location.reload()
+        document.getElementById("btn").disabled = false
     }
 
 }
