@@ -337,9 +337,9 @@ function generateAnnotationJson(train) {
     //cleanup
     rectangles.filter(rectangle => rectangle && rectangle.width > 10 && rectangle.height > 10)
     let arr = [...list.children].map(element => element.textContent || element.value)
-    
-    //images
     let point = videoElement.duration * 80 / 100
+
+    //images
     for (let i = 0; i < videoElement.duration; i += 0.04) {
 
         if (train && i >= point || !train && i < point) continue
@@ -352,10 +352,9 @@ function generateAnnotationJson(train) {
     }
 
     //annotations
-    point = rectangles.length * 80 / 100
     for (let i = 0; i < rectangles.length; i++) {
 
-        if (train && i >= point || !train && i < point) continue
+        if (train && rectangles[i].second >= point || !train && rectangles[i].second < point) continue
 
         boxes.push({
             "image_id": rectangles[i].second,
