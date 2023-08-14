@@ -11,13 +11,9 @@ body {
   overflow: hidden;
 }
 
-.videoView{
-  width: 100vw;
-  height: 100vh;
-}
-
 video {
-  object-fit: cover;
+  width: auto;
+  height: 100vh;
 }
 
 .highlighter {
