@@ -11,7 +11,7 @@ let model = ''
 let wDiff
 let hDiff
 
-window.addEventListener('orientationchange', window.reload())
+screen.orientation.addEventListener('change', computeScaling)
 
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
