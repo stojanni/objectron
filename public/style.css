@@ -9,7 +9,7 @@
 
 body {
   font-family: 'Montserrat';
-  background-color: #212121;
+  background-color: black;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -23,12 +23,12 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: yellow;
+  background-color: #212121;
   z-index: 3;
 }
 
 video {
-  width: 100vw;
+  width: 100%;
 }
 
 .highlighter {
