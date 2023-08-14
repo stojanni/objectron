@@ -263,7 +263,7 @@ function drawSecond() {
 
     //console.log('drawSecond')
 
-    document.getElementById('frameCount').innerHTML = `<b>Frame</b>: ${Math.round(currentSecond / 0.04)}/${Math.round(videoElement.duration / 0.04)}`
+    document.getElementById('frameCount').innerHTML = `<b>Frame</b>: ${Math.round(currentSecond * 100) / 100}/${Math.round(videoElement.duration * 100) / 100} (25fps)`
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height)
@@ -334,45 +334,48 @@ function generateAnnotationJson(train) {
     let boxes = []
     let categories = []
 
+    //cleanup
     rectangles.filter(rectangle => rectangle && rectangle.width > 10 && rectangle.height > 10)
-
-    let point = rectangles.length * 80 / 100
-
-    for (let i = 0; i < rectangles.length; i++) {
+    let arr = [...list.children].map(element => element.textContent || element.value)
+    
+    //images
+    let point = videoElement.duration * 80 / 100
+    for (let i = 0; i < videoElement.duration; i += 0.04) {
 
         if (train && i >= point || !train && i < point) continue
 
         images.push({
-            "id": i,
-            "file_name": `${i}.jpg`
+            "id": Math.round(i * 100) / 100,
+            "file_name": `${Math.round(i * 100) / 100}.jpg`
         })
-
-        for (let x = 0; x < list.children.length; x++) {
-            if (list.children[x].innerText === rectangles[x].label) {
-                boxes.push({
-                    "image_id": i,
-                    "bbox": [rectangles[i].x, rectangles[i].y, rectangles[i].width, rectangles[i].height],
-                    "category_id": x + 1,
-                    "time": rectangles[i].second
-                })
-                break
-            }
-        }
 
     }
 
-    categories.push({
-        "id": 0,
-        "name": "background"
-    })
+    //annotations
+    point = rectangles.length * 80 / 100
+    for (let i = 0; i < rectangles.length; i++) {
 
-    for (let i = 0; i < list.children.length; i++) {
+        if (train && i >= point || !train && i < point) continue
+
+        boxes.push({
+            "image_id": rectangles[i].second,
+            "bbox": [rectangles[i].x, rectangles[i].y, rectangles[i].width, rectangles[i].height],
+            "category_id": arr.indexOf(rectangles[i].label) + 1,
+            "time": rectangles[i].second
+        })
+
+    }
+
+    //categories
+    categories.push({ "id": 0, "name": "background" })
+    for (let i = 0; i < arr.length; i++) {
         categories.push({
             "id": i + 1,
-            "name": list.children[i].innerText
+            "name": arr[i]
         })
     }
 
+    //final
     let json = {
         "images": images,
         "annotations": boxes,
