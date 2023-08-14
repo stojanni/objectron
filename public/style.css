@@ -18,6 +18,11 @@ body {
   flex-direction: column;
 }
 
+video {
+  width: 100%;
+  height: auto;
+}
+
 .highlighter {
   position: absolute;
   background: rgba(0, 255, 0, 0.25);
