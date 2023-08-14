@@ -11,8 +11,6 @@ let wDiff
 let hDiff
 
 
-document.getElementById("btn").addEventListener('click', initializeObjectDetector)
-
 screen.orientation.addEventListener('change', computeScaling)
 
 window.addEventListener('beforeunload', () => {
@@ -40,15 +38,13 @@ function computeScaling() {
 
 // Initialize the object detector
 async function initializeObjectDetector() {
-    
-    document.getElementById("btn").disabled = true
 
     try {
         const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
 
         objectDetector = await ObjectDetector.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: `${document.getElementById("model").value}.tflite`,
+                modelAssetPath: 'efficientdet_lite0.tflite',
                 delegate: 'GPU'
             },
             scoreThreshold: 0.5,
@@ -66,7 +62,6 @@ async function initializeObjectDetector() {
     }
     catch {
         alert('Model not found')
-        document.getElementById("btn").disabled = false
     }
 
 }
@@ -74,11 +69,8 @@ async function initializeObjectDetector() {
 // Enable the live webcam view and start detection.
 async function enableCam() {
 
-    //document.getElementById("menu").remove()
-    document.getElementById("btn").disabled = false
-
     // Activate the webcam stream.
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } }).then(stream => {
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
         video.srcObject = stream
         video.addEventListener("loadeddata", () => {
             computeScaling()
@@ -158,4 +150,5 @@ function displayVideoDetections(result) {
 
 }
 
-if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
+//if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
+initializeObjectDetector()
