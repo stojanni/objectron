@@ -15,8 +15,6 @@ document.getElementById("btn").addEventListener('click', initializeObjectDetecto
 
 screen.orientation.addEventListener('change', computeScaling)
 
-window.addEventListener('resize', computeScaling);
-
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
         let tracks = video.srcObject.getTracks()
@@ -36,15 +34,8 @@ document.addEventListener('visibilitychange', () => {
 })
 
 function computeScaling() {
-    let aspectRatio = video.videoWidth / video.videoHeight;
-
-    if (window.innerWidth > window.innerHeight) { // Landscape mode
-        wDiff = video.offsetWidth / video.videoWidth;
-        hDiff = video.offsetWidth / (video.videoWidth / aspectRatio);
-    } else { // Portrait mode
-        wDiff = video.offsetHeight * aspectRatio / video.videoWidth;
-        hDiff = video.offsetHeight / video.videoHeight;
-    }
+    wDiff = video.offsetWidth / video.videoWidth || 1 // fallback to 1
+    hDiff = video.offsetHeight / video.videoHeight || 1 // fallback to 1
 }
 
 // Initialize the object detector
