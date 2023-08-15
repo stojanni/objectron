@@ -24,7 +24,6 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: #212121;
-  z-index: 3;
 }
 
 video {
@@ -36,7 +35,6 @@ video {
   background: rgba(0, 255, 0, 0.25);
   border: 1px dashed #fff;
   border-radius: 20px;
-  z-index: 1;
 }
 
 .videoView p {
@@ -47,7 +45,6 @@ video {
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   border: 1px dashed rgba(255, 255, 255, 0.7);
-  z-index: 2;
   font-size: 12px;
   border-radius: 20px 20px 0 0;
   text-align: center;
