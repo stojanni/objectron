@@ -17,7 +17,7 @@ screen.orientation.addEventListener('change', computeScaling)
 
 document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
 
-window.addEventListener('beforeunload', () => {
+/*window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
         let tracks = video.srcObject.getTracks()
         tracks.forEach(track => track.stop())
@@ -33,7 +33,7 @@ document.addEventListener('visibilitychange', async () => {
     } else {
         await enableCam()
     }
-})
+})*/
 
 function computeScaling() {
     wDiff = video.offsetWidth / video.videoWidth || 1 // fallback to 1
