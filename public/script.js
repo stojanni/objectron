@@ -3,8 +3,6 @@ import { ObjectDetector, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@m
 let objectDetector
 let video = document.getElementById("webcam")
 let liveView = document.getElementById("liveView")
-let childrenPool = []
-let activeChildren = []
 let lastVideoTime = -1
 
 let wDiff
@@ -15,7 +13,7 @@ window.onload = initializeObjectDetector()
 
 screen.orientation.addEventListener('change', computeScaling)
 
-document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none');
+document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
 
 window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
@@ -106,49 +104,29 @@ async function predictWebcam() {
 function displayVideoDetections(result) {
 
     // Remove text elements from the previous frame
-    for (let child of activeChildren)
-        if (child.tagName === 'P')
+    for (let child of liveView.children)
+        if (child.nodeName != "VIDEO")
             liveView.removeChild(child)
-
-    // Move all active highlighters to the pool
-    while (activeChildren.length > 0) {
-        let child = activeChildren.pop()
-        if (child.tagName === 'DIV') {
-            child.style.visibility = 'hidden'
-            childrenPool.push(child)
-        }
-    }
 
     // Iterate through predictions and update or create new highlight boxes
     for (let detection of result.detections) {
 
-        let highlighter
-
-        if (childrenPool.length > 0) {
-            highlighter = childrenPool.pop()
-            highlighter.style.visibility = 'visible'
-        } else {
-            highlighter = document.createElement("div")
-            highlighter.setAttribute("class", "highlighter")
-            liveView.appendChild(highlighter)
-        }
-
-        // Set highlighter box properties
+        let highlighter = document.createElement("div")
+        highlighter.setAttribute("class", "highlighter")
         highlighter.style.left = `${detection.boundingBox.originX * wDiff}px`
         highlighter.style.top = `${detection.boundingBox.originY * hDiff}px`
         highlighter.style.width = `${detection.boundingBox.width * wDiff}px`
         highlighter.style.height = `${detection.boundingBox.height * hDiff}px`
+        liveView.appendChild(highlighter)
 
-        activeChildren.push(highlighter)
-
-        // Create and add the label (text)
-        const p = document.createElement("p")
-        p.innerText = `${detection.categories[0].categoryName}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
-        p.style.left = `${detection.boundingBox.originX * wDiff}px`
-        p.style.top = `${detection.boundingBox.originY * hDiff}px`
-        p.style.width = `${(detection.boundingBox.width * wDiff - 10)}px`
-        liveView.appendChild(p)
-        activeChildren.push(p)
+        let label = document.createElement("p")
+        label.setAttribute("class", "label")
+        label.innerText = `${detection.categories[0].categoryName}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
+        label.style.left = `${detection.boundingBox.originX * wDiff}px`
+        label.style.top = `${detection.boundingBox.originY * hDiff}px`
+        label.style.width = `${(detection.boundingBox.width * wDiff)}px`
+        label.addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'flex')
+        highlighter.appendChild(label)
 
     }
 
