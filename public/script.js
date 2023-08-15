@@ -12,6 +12,7 @@ let highlighters = []
 
 
 window.onload = () => {
+    //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
     document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
     initializeObjectDetector()
 }
@@ -147,6 +148,3 @@ function select(e) {
     //document.getElementById('description').innerText = item.description
     document.getElementsByClassName('content')[0].style.display = 'flex'
 }
-
-
-if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'

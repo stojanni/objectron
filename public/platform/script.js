@@ -25,33 +25,39 @@ canvas1.style.left = `${canvas.getBoundingClientRect().left}px`
 
 //----------------------------------------------------------------------
 
-window.addEventListener("resize", e => resize(e))
+window.onload = () => {
 
-document.getElementById(`videoFile`).addEventListener('change', e => fileLoaded(e))
-document.getElementById(`video`).addEventListener('loadedmetadata', e => videoLoaded(e))
-document.getElementById(`video`).addEventListener('seeked', drawSecond)
-document.getElementById(`canvas1`).addEventListener('mousedown', e => mouseDown(e))
-document.getElementById(`canvas1`).addEventListener('mousemove', e => mouseMove(e))
-document.getElementById(`canvas1`).addEventListener('mouseup', mouseUp)
-document.getElementById(`list`).addEventListener('click', e => selectLabel(e))
+    if (!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com'
 
-document.getElementById(`addLabel`).addEventListener('click', addLabel)
-document.getElementById(`removeLabel`).addEventListener('click', removeLabel)
-document.getElementById(`export`).addEventListener('click', exportData)
+    window.addEventListener("resize", e => resize(e))
 
-document.onkeyup = (e) => {
-    if (document.activeElement.id != 'labelInput') {
-        if (e.code == 'KeyA') changeSecond(-0.04)
-        else if (e.code == 'KeyD') changeSecond(0.04)
-        else if (e.code == 'Space') changeSecond(0)
-    } else {
-        if (e.code == 'Enter') addLabel()
+    document.getElementById(`videoFile`).addEventListener('change', e => fileLoaded(e))
+    document.getElementById(`video`).addEventListener('loadedmetadata', e => videoLoaded(e))
+    document.getElementById(`video`).addEventListener('seeked', drawSecond)
+    document.getElementById(`canvas1`).addEventListener('mousedown', e => mouseDown(e))
+    document.getElementById(`canvas1`).addEventListener('mousemove', e => mouseMove(e))
+    document.getElementById(`canvas1`).addEventListener('mouseup', mouseUp)
+    document.getElementById(`list`).addEventListener('click', e => selectLabel(e))
+
+    document.getElementById(`addLabel`).addEventListener('click', addLabel)
+    document.getElementById(`removeLabel`).addEventListener('click', removeLabel)
+    document.getElementById(`export`).addEventListener('click', exportData)
+
+    document.onkeyup = (e) => {
+        if (document.activeElement.id != 'labelInput') {
+            if (e.code == 'KeyA') changeSecond(-0.04)
+            else if (e.code == 'KeyD') changeSecond(0.04)
+            else if (e.code == 'Space') changeSecond(0)
+        } else {
+            if (e.code == 'Enter') addLabel()
+        }
     }
+
 }
 
 //----------------------------------------------------------------------
 
-introJs().setOptions({
+/*introJs().setOptions({
     showBullets: false,
     steps: [{
         title: 'Guide',
@@ -76,7 +82,7 @@ introJs().setOptions({
         title: 'Step 4:',
         intro: "Export the data for training."
     }]
-}).start()
+}).start()*/
 
 //----------------------------------------------------------------------
 
@@ -226,7 +232,7 @@ function addLabel() {
     listItem = document.createElement('li')
     listItem.id = 'item'
     listItem.classList.add('collection-item')
-    listItem.innerText = document.getElementById('labelInput').value.toUpperCase()
+    listItem.innerText = document.getElementById('labelInput').value.replace(/ /g, '').toUpperCase()
 
     list.appendChild(listItem)
 
@@ -398,5 +404,3 @@ const toast = txt => Toastify({
         marginTop: "60px",
     }
 }).showToast()
-
-if (!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com'
