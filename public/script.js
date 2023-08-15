@@ -58,7 +58,7 @@ async function initializeObjectDetector() {
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
             enableCam()
         else {
-            alert("Not supported by your browser")
+            toast("Not supported by your browser")
             return
         }
 
@@ -82,7 +82,7 @@ async function enableCam() {
         })
     }).catch(err => {
         console.error(err)
-        alert('Cannot enable camera')
+        toast('Cannot enable camera')
     })
 
 }
