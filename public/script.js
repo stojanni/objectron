@@ -1,4 +1,4 @@
-import { ObjectDetector, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0'
+import { ObjectDetector, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest'
 
 let objectDetector
 let video = document.getElementById("webcam")
@@ -44,7 +44,7 @@ function computeScaling() {
 async function initializeObjectDetector() {
 
     try {
-        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm")
+        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm")
 
         objectDetector = await ObjectDetector.createFromOptions(vision, {
             baseOptions: {
@@ -65,7 +65,7 @@ async function initializeObjectDetector() {
         document.getElementById("logo").remove()
     }
     catch {
-        alert('Model not found')
+        toast('Model not found')
     }
 
 }
@@ -148,3 +148,13 @@ function select(e) {
     //document.getElementById('description').innerText = item.description
     document.getElementsByClassName('content')[0].style.display = 'flex'
 }
+
+const toast = txt => Toastify({
+    text: txt,
+    gravity: "top",
+    position: "left",
+    style: {
+        background: "#212121",
+        marginTop: "60px",
+    }
+}).showToast()
