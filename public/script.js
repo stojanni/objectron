@@ -121,7 +121,7 @@ function displayVideoDetections(result) {
 
         let label = document.createElement("p")
         label.setAttribute("class", "label")
-        label.innerText = `${detection.categories[0].categoryName}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
+        label.innerText = `${detection.categories[0].categoryName.charAt(0).toUpperCase() + string.slice(1)}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
         label.style.left = `${detection.boundingBox.originX * wDiff}px`
         label.style.top = `${detection.boundingBox.originY * hDiff}px`
         label.style.width = `${(detection.boundingBox.width * wDiff)}px`
