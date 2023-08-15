@@ -11,11 +11,11 @@ let hDiff
 let highlighters = []
 
 
-window.onload = initializeObjectDetector()
-
-screen.orientation.addEventListener('change', computeScaling)
-
-document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
+window.onload = () => {
+    screen.orientation.addEventListener('change', computeScaling)
+    document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
+    initializeObjectDetector()
+}
 
 /*window.addEventListener('beforeunload', () => {
     if (video.srcObject) {
