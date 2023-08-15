@@ -132,13 +132,13 @@ function displayVideoDetections(result) {
         highlighter.style.top = `${detection.boundingBox.originY * hDiff}px`
         highlighter.style.width = `${detection.boundingBox.width * wDiff}px`
         highlighter.style.height = `${detection.boundingBox.height * hDiff}px`
+        highlighter.addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'flex')
 
         let label = highlighter.querySelector(".label")
         label.innerText = `${detection.categories[0].categoryName}`
         label.style.left = `${detection.boundingBox.originX * wDiff}px`
         label.style.top = `${detection.boundingBox.originY * hDiff}px`
         label.style.width = `${detection.boundingBox.width * wDiff}px`
-        label.addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'flex')
 
     })
 }
