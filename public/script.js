@@ -8,6 +8,8 @@ let lastVideoTime = -1
 let wDiff
 let hDiff
 
+let highlighters = []
+
 
 window.onload = initializeObjectDetector()
 
@@ -103,33 +105,43 @@ async function predictWebcam() {
 
 function displayVideoDetections(result) {
 
-    // Remove text elements from the previous frame
-    for (let child of liveView.children)
-        if (child.nodeName != "VIDEO")
-            liveView.removeChild(child)
-
-    // Iterate through predictions and update or create new highlight boxes
-    for (let detection of result.detections) {
+    // If there are more detections than existing highlighters, create the needed ones
+    while (highlighters.length < result.detections.length) {
 
         let highlighter = document.createElement("div")
         highlighter.setAttribute("class", "highlighter")
+
+        let label = document.createElement("p")
+        label.setAttribute("class", "label")
+
+        highlighter.appendChild(label)
+        liveView.appendChild(highlighter)
+        highlighters.push(highlighter)
+        
+    }
+
+    // Hide all highlighters by default
+    highlighters.forEach(h => h.style.display = "none")
+
+    // Update the existing highlighters with new detection results
+    result.detections.forEach((detection, index) => {
+
+        let highlighter = highlighters[index]
+        highlighter.style.display = "block"
         highlighter.style.left = `${detection.boundingBox.originX * wDiff}px`
         highlighter.style.top = `${detection.boundingBox.originY * hDiff}px`
         highlighter.style.width = `${detection.boundingBox.width * wDiff}px`
         highlighter.style.height = `${detection.boundingBox.height * hDiff}px`
-        liveView.appendChild(highlighter)
 
-        let label = document.createElement("p")
-        label.setAttribute("class", "label")
-        label.innerText = `${detection.categories[0].categoryName}`/* - ${Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.`*/
+        let label = highlighter.querySelector(".label")
+        label.innerText = `${detection.categories[0].categoryName}`
         label.style.left = `${detection.boundingBox.originX * wDiff}px`
         label.style.top = `${detection.boundingBox.originY * hDiff}px`
-        label.style.width = `${(detection.boundingBox.width * wDiff)}px`
+        label.style.width = `${detection.boundingBox.width * wDiff}px`
         label.addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'flex')
-        highlighter.appendChild(label)
 
-    }
-
+    })
 }
+
 
 //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
