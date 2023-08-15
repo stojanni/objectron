@@ -149,4 +149,4 @@ function select(e) {
 }
 
 
-//if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
+if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'

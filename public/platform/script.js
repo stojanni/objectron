@@ -51,7 +51,7 @@ document.onkeyup = (e) => {
 
 //----------------------------------------------------------------------
 
-/*introJs().setOptions({
+introJs().setOptions({
     showBullets: false,
     steps: [{
         title: 'Guide',
@@ -76,7 +76,7 @@ document.onkeyup = (e) => {
         title: 'Step 4:',
         intro: "Export the data for training."
     }]
-}).start()*/
+}).start()
 
 //----------------------------------------------------------------------
 
