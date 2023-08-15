@@ -64,7 +64,7 @@ document.onkeyup = (e) => {
     {
         element: document.getElementById('buttonsLeft'),
         title: 'Step 2:',
-        intro: "Add/remove labels."
+        intro: "Add/remove labels in this format (Label-ID)"
     },
     {
         element: document.getElementById('shortcuts'),
