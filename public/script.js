@@ -132,7 +132,7 @@ function displayVideoDetections(result) {
         highlighter.style.top = `${detection.boundingBox.originY * hDiff}px`
         highlighter.style.width = `${detection.boundingBox.width * wDiff}px`
         highlighter.style.height = `${detection.boundingBox.height * hDiff}px`
-        highlighter.addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'flex')
+        highlighter.addEventListener('click', e => select(e))
 
         let label = highlighter.querySelector(".label")
         label.innerText = `${detection.categories[0].categoryName}`
@@ -141,6 +141,12 @@ function displayVideoDetections(result) {
         label.style.width = `${detection.boundingBox.width * wDiff}px`
 
     })
+}
+
+function select(e) {
+    document.getElementById('title').innerText = e.target.children[0].innerText
+    //document.getElementById('description').innerText = item.description
+    document.getElementsByClassName('content')[0].style.display = 'flex'
 }
 
 
