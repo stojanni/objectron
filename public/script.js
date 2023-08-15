@@ -12,8 +12,8 @@ let highlighters = []
 
 
 window.onload = () => {
-    screen.orientation.addEventListener('change', computeScaling)
-    document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
+    //screen.orientation.addEventListener('change', computeScaling)
+    //document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
     initializeObjectDetector()
 }
 
