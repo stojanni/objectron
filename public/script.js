@@ -24,14 +24,14 @@ window.addEventListener('beforeunload', () => {
     }
 })
 
-document.addEventListener('visibilitychange', () => {
+document.addEventListener('visibilitychange', async () => {
     if (document.hidden) {
         if (video.srcObject) {
             let tracks = video.srcObject.getTracks()
             tracks.forEach(track => track.stop())
         }
     } else {
-        location.reload()
+        await enableCam()
     }
 })
 
@@ -117,7 +117,7 @@ function displayVideoDetections(result) {
         highlighter.appendChild(label)
         liveView.appendChild(highlighter)
         highlighters.push(highlighter)
-        
+
     }
 
     // Hide all highlighters by default
