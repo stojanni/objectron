@@ -48,7 +48,7 @@ async function initializeObjectDetector() {
 
         objectDetector = await ObjectDetector.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: 'efficientdet_lite0.tflite',
+                modelAssetPath: 'model.tflite',
                 delegate: 'GPU'
             },
             scoreThreshold: 0.5,
