@@ -75,7 +75,7 @@ window.onload = () => {
     {
         element: document.getElementById('shortcuts'),
         title: 'Step 3:',
-        intro: "Use the buttons to move through the frames and annotate objects."
+        intro: "Use the buttons to move through the frames and annotate objects. At least 100 per object."
     },
     {
         element: document.getElementById('export'),
