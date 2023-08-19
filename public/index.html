@@ -13,10 +13,18 @@
 
 <body>
 
-  <span id="logo" style="width: 100%; text-align: center; font-size: 80px; font-style: italic; color: white; position: absolute; top: 45%;">Lens.</span>
+  <span id="logo"
+    style="width: 100%; text-align: center; font-size: 80px; font-style: italic; color: white; position: absolute; top: 45%;">Lens.</span>
 
   <div id="liveView" class="videoView">
     <video id="webcam" autoplay playsinline></video>
+  </div>
+
+  <div style="position: absolute; left: 20%; bottom: 20%">
+    <label for="models">Choose a model:</label>
+    <select id="models">
+      <option value="efficientdet_lite0">Generic</option>
+    </select>
   </div>
 
   <div class="content">
@@ -24,7 +32,7 @@
     <p id="description">Description</p>
     <img id="close" src="close.png" width="30px" height="30px">
   </div>
-  
+
   <script type="module" src="script.js"></script>
 
 </body>

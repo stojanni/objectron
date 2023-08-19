@@ -1,9 +1,11 @@
 import { ObjectDetector, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest'
 
+let vision
 let objectDetector
 let video = document.getElementById("webcam")
 let liveView = document.getElementById("liveView")
 let lastVideoTime = -1
+let running = false
 
 let wDiff
 let hDiff
@@ -11,10 +13,42 @@ let hDiff
 let highlighters = []
 
 
-window.onload = () => {
+window.onload = async () => {
+
     //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
+
     document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
-    initializeObjectDetector()
+
+    document.getElementById("models").addEventListener('change', async () => {
+
+        if (!running) vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm")
+
+        objectDetector = await ObjectDetector.createFromOptions(vision, {
+            baseOptions: {
+                modelAssetPath: `${document.getElementById("models").value}.tflite`,
+                delegate: 'GPU'
+            },
+            scoreThreshold: 0.5,
+            runningMode: 'VIDEO'
+        })
+
+        if (!running) {
+            if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
+                enableCam()
+            else {
+                toast("Not supported by your browser")
+            }
+            document.getElementById("logo").remove()
+        }
+
+        running = true
+
+    })
+
+    document.getElementById("models").dispatchEvent(new Event('change', {
+        'bubbles': true,
+        'cancelable': true
+    }))
 }
 
 /*window.addEventListener('beforeunload', () => {
@@ -41,32 +75,9 @@ function computeScaling() {
 }
 
 // Initialize the object detector
-async function initializeObjectDetector() {
+async function initializeObjectDetector(model) {
 
-    try {
-        const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm")
 
-        objectDetector = await ObjectDetector.createFromOptions(vision, {
-            baseOptions: {
-                modelAssetPath: 'efficientdet_lite0.tflite',
-                delegate: 'GPU'
-            },
-            scoreThreshold: 0.5,
-            runningMode: 'VIDEO'
-        })
-
-        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
-            enableCam()
-        else {
-            toast("Not supported by your browser")
-            return
-        }
-
-        document.getElementById("logo").remove()
-    }
-    catch {
-        toast('Model not found')
-    }
 
 }
 
