@@ -11,6 +11,8 @@ let wDiff
 let hDiff
 
 let highlighters = []
+let highlighter
+let label
 
 
 window.onload = async () => {
@@ -42,7 +44,7 @@ window.onload = async () => {
         }
 
         running = true
-        document.getElementById("models").style.display = "block";
+        document.getElementById("models").style.display = 'inline'
 
     })
 
@@ -92,10 +94,7 @@ async function enableCam() {
             computeScaling()
             predictWebcam()
         })
-    }).catch(err => {
-        console.error(err)
-        toast('Cannot enable camera')
-    })
+    }).catch(err => toast(err))
 
 }
 
@@ -120,10 +119,10 @@ function displayVideoDetections(result) {
     // If there are more detections than existing highlighters, create the needed ones
     while (highlighters.length < result.detections.length) {
 
-        let highlighter = document.createElement("div")
+        highlighter = document.createElement("div")
         highlighter.setAttribute("class", "highlighter")
 
-        let label = document.createElement("p")
+        label = document.createElement("p")
         label.setAttribute("class", "label")
 
         highlighter.appendChild(label)
