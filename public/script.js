@@ -58,7 +58,7 @@ window.onload = async () => {
             result.forEach(model => {
                 let option = document.createElement('option')
                 option.value = model
-                option.textContent = model
+                option.textContent = model.slice(0, -7);
                 document.getElementById("models").appendChild(option)
             })
 
