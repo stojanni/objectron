@@ -51,9 +51,9 @@ window.onload = async () => {
         method: 'GET',
         body: null
     })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
-
+            console.log(result)
             result.forEach(model => {
                 let option = document.createElement('option')
                 option.value = model
