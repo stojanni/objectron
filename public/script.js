@@ -137,7 +137,7 @@ function displayVideoDetections(result) {
     // Update the existing highlighters with new detection results
     result.detections.forEach((detection, index) => {
 
-        let highlighter = highlighters[index]
+        highlighter = highlighters[index]
         highlighter.style.display = "block"
         highlighter.style.left = `${detection.boundingBox.originX * wDiff}px`
         highlighter.style.top = `${detection.boundingBox.originY * hDiff}px`
@@ -145,7 +145,7 @@ function displayVideoDetections(result) {
         highlighter.style.height = `${detection.boundingBox.height * hDiff}px`
         highlighter.addEventListener('click', e => select(e))
 
-        let label = highlighter.querySelector(".label")
+        label = highlighter.querySelector(".label")
         label.innerText = `${detection.categories[0].categoryName}`
         label.style.left = `${detection.boundingBox.originX * wDiff}px`
         label.style.top = `${detection.boundingBox.originY * hDiff}px`
