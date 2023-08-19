@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
@@ -34,7 +35,7 @@ app.get('/platform', (req, res) => res.sendFile(path.join(__dirname, 'public/pla
 
 app.post('/upload', upload.single('file'), async (req, res, next) => {
 
-    const d = new Date();
+    const d = new Date()
 
     let blob = storage.bucket('objectron_bucket').file(`${req.body.model}_${d.getTime()}_video.mp4`)
     blob.createWriteStream().on('error', err => console.log('file upload error')).end(req.file.buffer)
@@ -58,6 +59,8 @@ app.post('/upload', upload.single('file'), async (req, res, next) => {
 
     res.status(200).send('File uploaded')
 })
+
+app.get('/models', (req, res) => fs.readdir(path.join(__dirname, 'public/models'), (err, files) => res.json(files)))
 
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`Server started at port: ${port}`))
