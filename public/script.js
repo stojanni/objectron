@@ -25,7 +25,7 @@ window.onload = async () => {
 
         objectDetector = await ObjectDetector.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: `${document.getElementById("models").value}.tflite`,
+                modelAssetPath: `/models/${document.getElementById("models").value}.tflite`,
                 delegate: 'GPU'
             },
             scoreThreshold: 0.5,
@@ -42,8 +42,8 @@ window.onload = async () => {
         }
 
         running = true
-        document.getElementById("models").style.display = "inline";
-        
+        document.getElementById("models").style.display = "block";
+
     })
 
     document.getElementById("models").dispatchEvent(new Event('change', {
