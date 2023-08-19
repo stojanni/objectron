@@ -17,20 +17,6 @@ let label
 
 window.onload = async () => {
 
-    fetch('https://objectron.onrender.com/models', {
-        method: 'GET',
-        body: null
-    })
-        .then(response => response.text())
-        .then(result => {
-            result.forEach(model => {
-                let option = document.createElement('option')
-                option.value = model
-                option.textContent = model
-                document.getElementById("models").appendChild(option)
-            })
-        })
-
     //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
 
     document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
@@ -58,14 +44,32 @@ window.onload = async () => {
         }
 
         running = true
-        document.getElementById("models").style.display = 'inline'
 
     })
 
-    document.getElementById("models").dispatchEvent(new Event('change', {
-        'bubbles': true,
-        'cancelable': true
-    }))
+    fetch('https://objectron.onrender.com/models', {
+        method: 'GET',
+        body: null
+    })
+        .then(response => response.text())
+        .then(result => {
+
+            result.forEach(model => {
+                let option = document.createElement('option')
+                option.value = model
+                option.textContent = model
+                document.getElementById("models").appendChild(option)
+            })
+
+            document.getElementById("models").style.display = 'inline'
+
+            document.getElementById("models").dispatchEvent(new Event('change', {
+                'bubbles': true,
+                'cancelable': true
+            }))
+
+        })
+
 }
 
 /*window.addEventListener('beforeunload', () => {
