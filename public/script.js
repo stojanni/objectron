@@ -44,6 +44,7 @@ window.onload = async () => {
         }
 
         running = true
+        document.getElementById("models").style.display = 'inline'
 
     })
 
@@ -60,8 +61,6 @@ window.onload = async () => {
                 option.textContent = model
                 document.getElementById("models").appendChild(option)
             })
-
-            document.getElementById("models").style.display = 'inline'
 
             document.getElementById("models").dispatchEvent(new Event('change', {
                 'bubbles': true,
