@@ -35,14 +35,15 @@ window.onload = async () => {
         if (!running) {
             if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
                 enableCam()
-            else {
+            else
                 toast("Not supported by your browser")
-            }
+
             document.getElementById("logo").remove()
         }
 
         running = true
-
+        document.getElementById("models").style.display = "inline";
+        
     })
 
     document.getElementById("models").dispatchEvent(new Event('change', {
