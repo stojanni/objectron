@@ -53,7 +53,7 @@ window.onload = async () => {
     })
         .then(response => response.json())
         .then(result => {
-            console.log(result)
+            
             result.forEach(model => {
                 let option = document.createElement('option')
                 option.value = model
