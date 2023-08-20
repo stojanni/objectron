@@ -19,7 +19,9 @@ window.onload = async () => {
 
     //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
 
-    video.addEventListener('loadedmetadata', computeScaling)
+    document.addEventListener('touchmove', (e) => {
+        e.preventDefault()
+    }, { passive: false })
 
     document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
 
