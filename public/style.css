@@ -32,10 +32,6 @@ body {
   background-color: #35363A;
 }
 
-video {
-  height: 100vh;
-}
-
 .highlighter {
   position: absolute;
   background: rgba(0, 255, 0, 0);
