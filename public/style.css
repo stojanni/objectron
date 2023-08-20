@@ -33,12 +33,8 @@ body {
   background-color: #35363A;
 }
 
-video {
-  width: 100%;
-}
-
 .highlighter {
-  position: absolute;
+  position: relative;
   background: rgba(0, 255, 0, 0);
   border: 1px dashed #fff;
   border-radius: 20px;

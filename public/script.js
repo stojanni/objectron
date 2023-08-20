@@ -3,7 +3,6 @@ import { ObjectDetector, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@m
 let vision
 let objectDetector
 let video = document.getElementById("webcam")
-let liveView = document.getElementById("liveView")
 let lastVideoTime = -1
 let running = false
 
@@ -54,11 +53,11 @@ window.onload = async () => {
     })
         .then(response => response.json())
         .then(result => {
-            
+
             result.forEach(model => {
                 let option = document.createElement('option')
                 option.value = model
-                option.textContent = model.slice(0, -7);
+                option.textContent = model.slice(0, -7)
                 document.getElementById("models").appendChild(option)
             })
 
@@ -68,6 +67,8 @@ window.onload = async () => {
             }))
 
         })
+
+    computeScaling()
 
 }
 
@@ -94,23 +95,13 @@ function computeScaling() {
     hDiff = video.offsetHeight / video.videoHeight || 1 // fallback to 1
 }
 
-// Initialize the object detector
-async function initializeObjectDetector(model) {
-
-
-
-}
-
 // Enable the live webcam view and start detection.
 async function enableCam() {
 
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia({ video: navigator.userAgent.includes('Windows') ? true : { facingMode: { exact: "environment" } } }).then(stream => {
         video.srcObject = stream
-        video.addEventListener("loadeddata", () => {
-            computeScaling()
-            predictWebcam()
-        })
+        video.addEventListener("loadeddata", predictWebcam)
     }).catch(err => toast(err))
 
 }
@@ -143,7 +134,8 @@ function displayVideoDetections(result) {
         label.setAttribute("class", "label")
 
         highlighter.appendChild(label)
-        liveView.appendChild(highlighter)
+        video.appendChild(highlighter)
+        
         highlighters.push(highlighter)
 
     }
