@@ -3,6 +3,7 @@ import { ObjectDetector, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@m
 let vision
 let objectDetector
 let video = document.getElementById("webcam")
+let liveView = document.getElementById("liveView")
 let lastVideoTime = -1
 let running = false
 
@@ -134,8 +135,7 @@ function displayVideoDetections(result) {
         label.setAttribute("class", "label")
 
         highlighter.appendChild(label)
-        video.appendChild(highlighter)
-        
+        liveView.appendChild(highlighter)
         highlighters.push(highlighter)
 
     }
