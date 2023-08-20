@@ -34,7 +34,7 @@ body {
 }
 
 video {
-  height: 100vh;
+  object-fit: cover;
 }
 
 .highlighter {
