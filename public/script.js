@@ -19,6 +19,8 @@ window.onload = async () => {
 
     //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
 
+    video.addEventListener('loadedmetadata', computeScaling)
+
     document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
 
     document.getElementById("models").addEventListener('change', async () => {
@@ -69,8 +71,6 @@ window.onload = async () => {
 
         })
 
-    computeScaling()
-
 }
 
 /*window.addEventListener('beforeunload', () => {
@@ -102,7 +102,10 @@ async function enableCam() {
     // Activate the webcam stream.
     navigator.mediaDevices.getUserMedia({ video: navigator.userAgent.includes('Windows') ? true : { facingMode: { exact: "environment" } } }).then(stream => {
         video.srcObject = stream
-        video.addEventListener("loadeddata", predictWebcam)
+        video.addEventListener("loadeddata", () => {
+            computeScaling()
+            predictWebcam()
+        })
     }).catch(err => toast(err))
 
 }
@@ -158,7 +161,7 @@ function displayVideoDetections(result) {
         label.innerText = `${detection.categories[0].categoryName}`
         label.style.left = `${detection.boundingBox.originX * wDiff}px`
         label.style.top = `${detection.boundingBox.originY * hDiff}px`
-        label.style.width = `${detection.boundingBox.width * wDiff}px`
+        label.style.width = `${detection.boundingBox.width * wDiff - 10}px`
 
     })
 }
