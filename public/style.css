@@ -34,11 +34,11 @@ body {
 }
 
 video {
-  object-fit: cover;
+  height: 100vh;
 }
 
 .highlighter {
-  position: relative;
+  position: absolute;
   background: rgba(0, 255, 0, 0);
   border: 1px dashed #fff;
   border-radius: 20px;
