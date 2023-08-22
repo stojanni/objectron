@@ -15,65 +15,61 @@ let highlighter
 let label
 
 
-window.onload = async () => {
+//if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
 
-    //if (navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com/platform'
+document.addEventListener('touchmove', (e) => {
+    e.preventDefault()
+}, { passive: false })
 
-    document.addEventListener('touchmove', (e) => {
-        e.preventDefault()
-    }, { passive: false })
+document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
 
-    document.getElementById('close').addEventListener('click', () => document.getElementsByClassName('content')[0].style.display = 'none')
+document.getElementById("models").addEventListener('change', async () => {
 
-    document.getElementById("models").addEventListener('change', async () => {
+    if (!running) vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm")
 
-        if (!running) vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm")
-
-        objectDetector = await ObjectDetector.createFromOptions(vision, {
-            baseOptions: {
-                modelAssetPath: `/models/${document.getElementById("models").value}`,
-                delegate: 'GPU'
-            },
-            scoreThreshold: 0.5,
-            runningMode: 'VIDEO'
-        })
-
-        if (!running) {
-            if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
-                enableCam()
-            else
-                toast("Not supported by your browser")
-
-            document.getElementById("logo").remove()
-        }
-
-        running = true
-        document.getElementById("models").style.display = 'inline'
-
+    objectDetector = await ObjectDetector.createFromOptions(vision, {
+        baseOptions: {
+            modelAssetPath: `/models/${document.getElementById("models").value}`,
+            delegate: 'GPU'
+        },
+        scoreThreshold: 0.5,
+        runningMode: 'VIDEO'
     })
 
-    fetch('https://objectron.onrender.com/models', {
-        method: 'GET',
-        body: null
-    })
-        .then(response => response.json())
-        .then(result => {
+    if (!running) {
+        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia))
+            enableCam()
+        else
+            toast("Not supported by your browser")
 
-            result.forEach(model => {
-                let option = document.createElement('option')
-                option.value = model
-                option.textContent = model.slice(0, -7)
-                document.getElementById("models").appendChild(option)
-            })
+        document.getElementById("logo").remove()
+    }
 
-            document.getElementById("models").dispatchEvent(new Event('change', {
-                'bubbles': true,
-                'cancelable': true
-            }))
+    running = true
+    document.getElementById("models").style.display = 'inline'
 
+})
+
+fetch('https://objectron.onrender.com/models', {
+    method: 'GET',
+    body: null
+})
+    .then(response => response.json())
+    .then(result => {
+
+        result.forEach(model => {
+            let option = document.createElement('option')
+            option.value = model
+            option.textContent = model.slice(0, -7)
+            document.getElementById("models").appendChild(option)
         })
 
-}
+        document.getElementById("models").dispatchEvent(new Event('change', {
+            'bubbles': true,
+            'cancelable': true
+        }))
+
+    })
 
 /*window.addEventListener('beforeunload', () => {
     if (video.srcObject) {

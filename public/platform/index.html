@@ -6,14 +6,6 @@
     <link rel="icon" type="image/x-icon" href="../favicon.png">
     <link rel="stylesheet" href="style.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" rel="noopener">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin rel="noopener">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
@@ -23,57 +15,50 @@
 
 <body>
 
-    <div class="header">
-        <img src="favicon.png" style="height: 30px;">
-        <span>Lens.</span>
-    </div>
+    <span style="position: absolute; font-size: 40px; font-style: italic; width: 100%; text-align: center; top: 40px">Video Annotation Platform</span>
 
-    <div class="stepper-container">
+    <div class="main">
 
-        <div class="step active" id="step-1">
+        <div class="buttons_left" id="buttonsLeft">
 
-            <div class="buttons_left" id="buttonsLeft">
+            <label for="videoFile" style="cursor: pointer; font-style: italic; font-weight: bold;">Select video...</label>
+            <input type="file" id="videoFile" accept="video/*" hidden>
 
-                <div class="input-field col s6">
-                    <input id="labelInput" type="text" class="validate" style="color: white">
-                    <label for="labelInput">Label-ID</label>
-                </div>
+            <input type="text" id="labelInput" placeholder="Label-ID" style="width: 240px; border-radius: 10px;" disabled>
 
-                <button class="btn blue accent-4" style="width: 200px" id="addLabel" disabled>Add Label</button>
-                <button class="btn blue accent-4" style="width: 200px" id="removeLabel" disabled>Remove Label</button>
-
-                <span style="margin-top: 20px; color: white; font-size: 18px;">Labels:</span>
-                <ul id="list" class="collection" style="width: 200px"></ul>
-
+            <div style="display: flex; gap: 5px">
+                <button id="addLabel" style="width: 120px; border-radius: 10px;" disabled>Add Label</button>
+                <button id="removeLabel" style="width: 120px; border-radius: 10px;" disabled>Remove Label</button>
             </div>
 
-            <div>
-                <canvas id="canvas" width="1024" height="576" style="border: 1px solid #3B6263; border-radius: 5px;"></canvas>
-                <canvas id="canvas1" width="1024" height="576" style="position: absolute; border: 1px solid #3B6263; border-radius: 5px;"></canvas>
-                <input type="file" id="videoFile" accept="video/*" hidden>
-                <video id="video" style="display:none"></video>
-            </div>
-
-            <div class="buttons_right">
-
-                <label id="uploadVideo" style="width: 200px" for="videoFile" class="btn blue accent-4">
-                    Upload Video
-                    <i class="material-icons right">file_upload</i>
-                </label>
-
-                <div id="shortcuts" style="font-size: 16px; margin-top: 30px; color: white; display: flex; flex-direction: column; gap: 10px">
-                    <span><b>A</b>: Previous frame</span>
-                    <span><b>D</b>: Next frame</span>
-                    <span><b>Space</b>: Reset frame</span>
-                    <span id="frameCount"><b>Second</b>: 0</span>
-                </div>
-
-                <button class="btn blue accent-4" style="width: 200px; margin-top: 330px;" id="export">Export</button>
-
-            </div>
+            <ul id="list" style="width: 200px"></ul>
 
         </div>
+
+        <div>
+            <video id="video" style="display:none"></video>
+            <canvas id="canvas" width="1024" height="576" style="border: 1px solid #3B6263; border-radius: 10px;"></canvas>
+            <canvas id="canvas1" width="1024" height="576" style="position: absolute; border: 1px solid #3B6263; border-radius: 10px;"></canvas>
+        </div>
+
+        <div class="buttons_right">
+
+            <label id="imageFilename" for="itemImage" style="cursor: pointer; font-style: italic; font-weight: bold;">Select image...</label>
+            <input type="file" id="itemImage" accept="image/*" hidden disabled>
+
+            <textarea id="description" rows="10" cols="40" placeholder="Item description" style="border-radius: 10px; resize: none;" disabled></textarea>
+
+            <span id="frameCount"><b>Second</b>: 0</span>
+
+            <button id="export" style="width: 120px; border-radius: 10px;" disabled>Export</button>
+
+            <input type="file" id="imageFile" accept="image/*" hidden>
+            <video id="video" style="display:none"></video>
+
+        </div>
+
     </div>
+
     <script src="script.js"></script>
 </body>
 

@@ -4,7 +4,8 @@ let currentSecond = 0
 let loaded = false
 let selectedLabel = ''
 let video
-let rect
+
+let details = {}
 
 const videoElement = document.getElementById('video')
 
@@ -18,39 +19,40 @@ const list = document.getElementById('list')
 
 ctx.fillStyle = '#212121'
 ctx.fillRect(0, 0, canvas.width, canvas.height)
-ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+//----------------------------------------------------------------------
+
+if (!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com'
 
 canvas1.style.top = `${canvas.getBoundingClientRect().top}px`
 canvas1.style.left = `${canvas.getBoundingClientRect().left}px`
 
-//----------------------------------------------------------------------
+window.addEventListener("resize", e => resize(e))
 
-window.onload = () => {
+document.getElementById(`videoFile`).addEventListener('change', e => videoFileLoaded(e))
+document.getElementById(`video`).addEventListener('loadedmetadata', e => videoLoaded(e))
+document.getElementById(`video`).addEventListener('seeked', drawSecond)
 
-    if (!navigator.userAgent.includes('Windows')) location.href = 'https://objectron.onrender.com'
+document.getElementById(`canvas1`).addEventListener('mousedown', e => mouseDown(e))
+document.getElementById(`canvas1`).addEventListener('mousemove', e => mouseMove(e))
+document.getElementById(`canvas1`).addEventListener('mouseup', mouseUp)
 
-    window.addEventListener("resize", e => resize(e))
+document.getElementById(`addLabel`).addEventListener('click', addLabel)
+document.getElementById(`removeLabel`).addEventListener('click', removeLabel)
 
-    document.getElementById(`videoFile`).addEventListener('change', e => fileLoaded(e))
-    document.getElementById(`video`).addEventListener('loadedmetadata', e => videoLoaded(e))
-    document.getElementById(`video`).addEventListener('seeked', drawSecond)
-    document.getElementById(`canvas1`).addEventListener('mousedown', e => mouseDown(e))
-    document.getElementById(`canvas1`).addEventListener('mousemove', e => mouseMove(e))
-    document.getElementById(`canvas1`).addEventListener('mouseup', mouseUp)
-    document.getElementById(`list`).addEventListener('click', e => selectLabel(e))
+document.getElementById(`itemImage`).addEventListener('change', e => imageFileLoaded(e))
+document.getElementById(`description`).addEventListener('change', e => descriptionChanged(e))
 
-    document.getElementById(`addLabel`).addEventListener('click', addLabel)
-    document.getElementById(`removeLabel`).addEventListener('click', removeLabel)
-    document.getElementById(`export`).addEventListener('click', exportData)
+document.getElementById(`export`).addEventListener('click', exportData)
 
-    document.onkeyup = (e) => {
-        if (document.activeElement.id != 'labelInput') {
-            if (e.code == 'KeyA') changeSecond(-0.04)
-            else if (e.code == 'KeyD') changeSecond(0.04)
-            else if (e.code == 'Space') changeSecond(0)
-        } else {
-            if (e.code == 'Enter') addLabel()
-        }
+document.onkeyup = (e) => {
+
+    if (document.activeElement.id == 'canvas') {
+        if (e.code == 'KeyA') changeSecond(-0.04)
+        else if (e.code == 'KeyD') changeSecond(0.04)
+        else if (e.code == 'Space') changeSecond(0)
+    } else if (document.activeElement.id == 'labelInput') {
+        if (e.code == 'Enter') addLabel()
     }
 
 }
@@ -86,20 +88,15 @@ window.onload = () => {
 
 //----------------------------------------------------------------------
 
-function resize(e) {
+function resize() {
     canvas1.style.top = `${canvas.getBoundingClientRect().top}px`
     canvas1.style.left = `${canvas.getBoundingClientRect().left}px`
 }
 
 //load file to video tag
-function fileLoaded(e) {
+function videoFileLoaded(e) {
 
-    console.log('fileLoaded')
-
-    /*if (e.target.files[0].size / 1000000 > 10) {
-        toast('Video cant be larger than 10MB')
-        return
-    }*/
+    console.log('videoFileLoaded')
 
     video = e.target.files[0]
     videoElement.src = URL.createObjectURL(video)
@@ -110,23 +107,112 @@ function videoLoaded(e) {
 
     console.log('videoLoaded')
 
-    /*if (e.target.duration < 5) {
-        toast('Video duration over 5s required')
-        e.target.src = ''
-        e.target.load()
-        return
-    }*/
-
     canvas.width = (canvas.height * e.target.videoWidth) / e.target.videoHeight
     canvas1.width = canvas.width
 
     canvas1.style.top = `${canvas.getBoundingClientRect().top}px`
     canvas1.style.left = `${canvas.getBoundingClientRect().left}px`
 
-    document.getElementById('addLabel').disabled = false
-
     loaded = true
     videoElement.currentTime = 0
+
+    document.getElementById('addLabel').disabled = false
+    document.getElementById('labelInput').disabled = false
+}
+
+//load file to video tag
+function imageFileLoaded(e) {
+
+    console.log('imageFileLoaded')
+
+    details[selectedLabel] = {
+        image: e.target.files[0],
+        description: details[selectedLabel] ? details[selectedLabel].description : ''
+    }
+
+    document.getElementById('imageFilename').innerText = `Select image... (${e.target.files[0].name})`
+
+}
+
+function descriptionChanged(e) {
+
+    console.log('descriptionChanged')
+
+    details[selectedLabel] = {
+        image: details[selectedLabel] ? details[selectedLabel].image : null,
+        description: e.target.value
+    }
+
+    console.log(details)
+}
+
+function addLabel() {
+
+    console.log('addLabel')
+
+    if (document.getElementById('labelInput').value == '') return
+
+    //add label
+    listItem = document.createElement('li')
+    listItem.id = 'item'
+    listItem.innerText = document.getElementById('labelInput').value.replace(/ /g, '').toUpperCase()
+    listItem.style.cursor = 'pointer'
+    listItem.addEventListener('click', e => selectLabel(e))
+    list.appendChild(listItem)
+
+    //enable remove btn
+    document.getElementById('removeLabel').disabled = false
+
+    //if its first make it bold
+    if (list.getElementsByTagName('li').length == 1) {
+        selectedLabel = list.getElementsByTagName('li')[0].innerText
+        list.getElementsByTagName('li')[0].style.fontWeight = 'bold'
+    }
+
+    //clear input
+    document.getElementById('labelInput').value = ''
+
+    //enable details btns
+    document.getElementById('itemImage').disabled = false
+    document.getElementById('description').disabled = false
+
+}
+
+function selectLabel(e) {
+
+    console.log('selectLabel')
+
+    selectedLabel = e.target.innerText
+    for (let element of list.children) element.style.fontWeight = 'normal'
+    e.target.style.fontWeight = 'bold'
+
+}
+
+function removeLabel() {
+
+    console.log('removeLabel')
+
+    //clean up boxes
+    rectangles = rectangles.filter(element => element.label != selectedLabel)
+
+    //remove list item
+    for (let i = 0; i < list.children.length; i++)
+        list.children[i].innerText == selectedLabel ? list.removeChild(list.children[i]) : null
+
+    //remove details item
+    delete details[selectedLabel]
+
+    //if left one make it bold otherwise disable btns
+    if (list.children.length > 0) {
+        selectedLabel = list.children[0].innerText
+        for (let element of list.children) element.style.fontWeight = 'normal'
+        list.children[0].style.fontWeight = 'bold'
+    } else {
+        selectedLabel = ''
+        document.getElementById('removeLabel').disabled = true
+        document.getElementById('itemImage').disabled = true
+        document.getElementById('description').disabled = true
+    }
 
 }
 
@@ -189,78 +275,13 @@ function mouseUp() {
     if (!drawing) return
     drawing = false
 
-    if (rectangles[rectangles.length - 1] == null) {
-        toast('null rect')
-        return
-    }
-
-    if (rectangles[rectangles.length - 1].width < 0) {
-        rectangles[rectangles.length - 1].x + rectangles[rectangles.length - 1].width
-        rectangles[rectangles.length - 1].width = Math.abs(rectangles[rectangles.length - 1].width)
-    }
-    if (rectangles[rectangles.length - 1].height < 0) {
-        rectangles[rectangles.length - 1].y + rectangles[rectangles.length - 1].height
-        rectangles[rectangles.length - 1].height = Math.abs(rectangles[rectangles.length - 1].height)
-    }
+    if (rectangles[rectangles.length - 1] == null) return
 
     if (rectangles[rectangles.length - 1].width < 10 || rectangles[rectangles.length - 1].height < 10) {
-        toast('too small')
+        toast('Too small')
         rectangles.pop()
         drawSecond()
         return
-    }
-
-}
-
-function selectLabel(e) {
-
-    if (e.target && e.target.tagName == 'LI') {
-        console.log('selectLabel')
-        list.querySelectorAll('#item').forEach(element => element.classList.remove('active'))
-        e.target.classList.add('active')
-        selectedLabel = e.target.innerText
-    }
-
-}
-
-function addLabel() {
-
-    console.log('addLabel')
-
-    if (document.getElementById('labelInput').value == '') return
-
-    listItem = document.createElement('li')
-    listItem.id = 'item'
-    listItem.classList.add('collection-item')
-    listItem.innerText = document.getElementById('labelInput').value.replace(/ /g, '').toUpperCase()
-
-    list.appendChild(listItem)
-
-    document.getElementById('removeLabel').disabled = false
-
-    if (list.getElementsByTagName('li').length == 1) {
-        list.getElementsByTagName('li')[0].classList.add('active')
-        selectedLabel = list.getElementsByTagName('li')[0].innerText
-    }
-
-    document.getElementById('labelInput').value = ''
-
-}
-
-function removeLabel() {
-
-    console.log('removeLabel')
-
-    rectangles = rectangles.filter(element => element.label != selectedLabel)
-
-    for (let i = 0; i < list.children.length; i++)
-        list.children[i].innerText == selectedLabel ? list.removeChild(list.children[i]) : null
-
-    if (list.children.length > 0) {
-        list.children[0].classList.add('active')
-        selectedLabel = list.children[0].innerText
-    } else {
-        document.getElementById('removeLabel').disabled = true
     }
 
 }
@@ -275,7 +296,7 @@ function drawSecond() {
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height)
 
     rectangles.forEach(rect => {
-        if (rect != null && rect.second == currentSecond) {
+        if (rect.second == currentSecond) {
             ctx.lineJoin = 'round'
             ctx.lineWidth = 1
             ctx.strokeStyle = 'lightblue'
